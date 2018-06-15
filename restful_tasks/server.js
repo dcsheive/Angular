@@ -5,6 +5,7 @@ var app = express();
 app.use(express.static( __dirname + '/angular/dist/angular' ));
 
 var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json());
 
 var session = require('express-session')
