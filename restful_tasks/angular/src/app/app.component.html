@@ -1,21 +1,58 @@
 <div class="wrapper">
-  <h1>Tasks: </h1>
-  <div *ngIf="tasks">
-    <div *ngFor="let item of tasks">
-      <ul> 
-        <li>Title: {{ item.title }}
-          <button (click)="getTask(item._id)">Show</button>
-        </li>
-      </ul>
+  <div class="box">
+    <h1>Create New Task: </h1>
+    <form (submit)="onSubmit()">
+      <div>
+        <label for="">Title:</label>
+        <input type="text" name="newTask.title" [(ngModel)]="newTask.title" /><br>
+      </div>
+      <div>
+        <label for="">Description:</label>
+        <input type="text" name="newTask.description" [(ngModel)]="newTask.description" /><br>
+      </div>
+      <input type="submit"/>
+    </form>
+    <h1>Tasks: </h1>
+    <div *ngIf="tasks">
+      <div *ngFor="let item of tasks">
+        <ul> 
+          <li>
+            <p>Title: {{ item.title }}</p>
+            <button (click)="getTask(item._id)">Show</button>
+            <button (click)="startEdit(item._id)">Edit</button>
+            <button (click)="deleteTask(item._id)">Delete</button>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-  <h1>Task: </h1>
-  <div *ngIf="task">
-    <ul> 
-      <li>id: {{ task._id }} </li>
-      <li>Title: {{ task.title }}</li>
-      <li>Description: {{ task.description }}</li>
-      <li>Completed: {{ task.completed }}</li>
-    </ul>
+  <div class="box">
+    <div *ngIf="task">
+      <h1>Task: </h1>
+      <ul> 
+        <li>id: {{ task._id }}</li>
+        <li>Title: {{ task.title }}</li>
+        <li>Description: {{ task.description }}</li>
+        <li>Completed: {{ task.completed }}</li>
+      </ul>
+    </div>
+    <div *ngIf="editTask">
+      <h1>Edit Task: </h1>
+      <form (submit)="updateTask(task._id)">
+        <div>
+          <label for="">Title:</label>
+          <input type="text" name="newTask2.title" [(ngModel)]="newTask2.title" value="{{task.title}}"/><br>
+        </div>
+        <div>
+          <label for="">Description:</label>
+          <input type="text" name="newTask2.description" [(ngModel)]="newTask2.description" value="{{task.description}}" /><br>
+        </div>
+        <div>
+          <label for="">Completed:</label>
+          <input type="text" name="newTask2.completed" [(ngModel)]="newTask2.completed" value="{{task.completed}}" /><br>
+        </div>
+        <input type="submit"/>
+      </form>
+    </div>
   </div>
 </div>
