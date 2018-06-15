@@ -56,7 +56,7 @@ class TaskController {
         })
     }
     create(req,res){
-        var task = new Task({title: req.params.title})
+        var task = new Task(req.body)
         task.save(function(err){
             if (err){
                 console.log("We have an error", err)
