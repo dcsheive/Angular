@@ -11,13 +11,14 @@ export class HttpService {
   getTasks() {
     return this._http.get('/tasks');
   }
-  getTask(id) {
-    return this._http.get('/tasks/' + id);
+  getTask(id, cb) {
+    this._http.get('/tasks/' + id).subscribe( data => cb(data));
   }
   delTask(id) {
     return this._http.delete('/tasks/' + id);
   }
   addTask(newtask) {
+    console.log(newtask);
     return this._http.post('/tasks/', newtask);
   }
   editTask(id, task) {

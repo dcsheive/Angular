@@ -4,7 +4,7 @@ import { HttpService } from './http.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./bootstrap.css', './app.component.css']
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
   tasks: any;
@@ -12,12 +12,25 @@ export class AppComponent implements OnInit {
   newTask: any;
   newTask2: any;
   editTask: Boolean;
+  powers: any;
   constructor(private _httpService: HttpService) {}
   ngOnInit() {
     this.editTask = false;
     this.getTasksFromService();
     this.newTask = { title: '', description: ''};
     this.newTask2 = { title: '', description: '', completed: ''};
+    this.powers = ['true', 'false'];
+  }
+  sendId(eventData) {
+    if (eventData[0] === 'edit') {
+      this.startEdit(eventData[1]);
+    }
+    if (eventData[0] === 'delete') {
+      this.deleteTask(eventData[1]);
+    }
+    if (eventData[0] === 'get') {
+      this.getTask(eventData[1]);
+    }
   }
   getTasksFromService() {
     const observable = this._httpService.getTasks();
@@ -26,8 +39,7 @@ export class AppComponent implements OnInit {
     });
   }
   getTask(id) {
-    const observable = this._httpService.getTask(id);
-    observable.subscribe(data => {
+    this._httpService.getTask(id, (data) => {
       this.task = data;
     });
   }
@@ -37,6 +49,8 @@ export class AppComponent implements OnInit {
     });
     this.newTask = { title: '', description: ''};
     this.getTasksFromService();
+    this.editTask = false;
+
   }
   startEdit(id) {
     this.getTask(id);
@@ -57,5 +71,7 @@ export class AppComponent implements OnInit {
       this.task = data;
     });
     this.getTasksFromService();
+    this.editTask = false;
+
   }
 }

@@ -4,26 +4,17 @@
     <form (submit)="onSubmit()">
       <div>
         <label for="">Title:</label>
-        <input type="text" name="newTask.title" [(ngModel)]="newTask.title" /><br>
+        <input type="text" class="form-control" name="newTask.title" required minlength="4" #description="ngModel" [(ngModel)]="newTask.title" /><br>
       </div>
       <div>
         <label for="">Description:</label>
-        <input type="text" name="newTask.description" [(ngModel)]="newTask.description" /><br>
+        <input type="text" class="form-control" name="newTask.description" [(ngModel)]="newTask.description" /><br>
       </div>
       <input type="submit"/>
     </form>
     <h1>Tasks: </h1>
     <div *ngIf="tasks">
-      <div *ngFor="let item of tasks">
-        <ul> 
-          <li>
-            <p>Title: {{ item.title }}</p>
-            <button (click)="getTask(item._id)">Show</button>
-            <button (click)="startEdit(item._id)">Edit</button>
-            <button (click)="deleteTask(item._id)">Delete</button>
-          </li>
-        </ul>
-      </div>
+      <app-task *ngFor="let item of tasks" [item]='item' (taskEmitter) = "sendId($event)"></app-task>
     </div>
   </div>
   <div class="box">
@@ -41,15 +32,18 @@
       <form (submit)="updateTask(task._id)">
         <div>
           <label for="">Title:</label>
-          <input type="text" name="newTask2.title" [(ngModel)]="newTask2.title" value="{{task.title}}"/><br>
+          <input type="text" class="form-control" name="newTask2.title" [(ngModel)]="newTask2.title" value="{{task.title}}"/><br>
         </div>
         <div>
           <label for="">Description:</label>
-          <input type="text" name="newTask2.description" [(ngModel)]="newTask2.description" value="{{task.description}}" /><br>
+          <input type="text" class="form-control" name="newTask2.description" [(ngModel)]="newTask2.description" value="{{task.description}}" /><br>
         </div>
         <div>
           <label for="">Completed:</label>
-          <input type="text" name="newTask2.completed" [(ngModel)]="newTask2.completed" value="{{task.completed}}" /><br>
+          <!-- <input type="text" class="form-control" name="newTask2.completed" [(ngModel)]="newTask2.completed" value="{{task.completed}}" /><br> -->
+          <select class="form-control" name="newTask2.completed" [(ngModel)]="newTask2.completed" value="{{task.completed}}">
+            <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
+          </select>
         </div>
         <input type="submit"/>
       </form>

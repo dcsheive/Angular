@@ -1,0 +1,8 @@
+<ul> 
+    <li>
+      <p>Title: {{ item.title }}</p>
+      <button (click)="triggerEvent(['get',item._id])">Show</button>
+      <button (click)="triggerEvent(['edit',item._id])">Edit</button>
+      <button (click)="triggerEvent(['delete',item._id])">Delete</button>
+    </li>
+</ul>
