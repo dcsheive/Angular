@@ -1,0 +1,7 @@
+<div class="box">
+  <p>Title: {{ item.title }}</p>
+  <p>Price: {{ item.price }}</p>
+  <img src="{{item.image}}" alt="">
+  <button [routerLink]="['edit/', item._id]">Edit</button>
+  <button (click)="deleteProduct(item._id)">Delete</button>
+</div>

@@ -1,0 +1,17 @@
+<h1>Edit Product: </h1>
+<form (submit)="updateProduct(product._id)">
+  <div>
+    <label for="">Title:</label>
+    <input type="text" class="form-control" name="newProduct.title" [(ngModel)]="newProduct.title" value="{{product.title}}"/><br>
+  </div>
+  <div>
+    <label for="">Price:</label>
+    <input type="text" class="form-control" name="newProduct.price" [(ngModel)]="newProduct.price" value="{{product.price}}" /><br>
+  </div>
+  <div>
+    <label for="">Image:</label>
+    <input type="text" class="form-control" name="newProduct.image" [(ngModel)]="newProduct.image" value="{{product.image}}" /><br>
+  </div>
+  <input type="submit"/>
+  <button (click)="deleteProduct(product._id)">Delete</button>
+</form>

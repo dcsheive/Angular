@@ -1,0 +1,17 @@
+<h1>Create New Product: </h1>
+<form (submit)="onSubmit()">
+  <div>
+    <label for="">Title:</label>
+    <input type="text" class="form-control" name="newProduct.title" required minlength="4" #description="ngModel" [(ngModel)]="newProduct.title" /><br>
+  </div>
+  <div>
+    <label for="">Price:</label>
+    <input type="text" class="form-control" name="newProduct.price" [(ngModel)]="newProduct.price" /><br>
+  </div>
+  <div>
+    <label for="">Img:</label>
+    <input type="text" class="form-control" name="newProduct.image" [(ngModel)]="newProduct.image" /><br>
+  </div>
+  <input type="submit"/>
+  <button (click)="goHome()">Cancel</button>
+</form>
