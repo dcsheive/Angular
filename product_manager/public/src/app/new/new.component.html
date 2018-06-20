@@ -1,8 +1,8 @@
 <h1>Create New Product: </h1>
-<form (submit)="onSubmit()">
+<form (submit)="onSubmit()" name="myForm">
   <div>
     <label for="">Title:</label>
-    <input type="text" class="form-control" name="newProduct.title" required minlength="4" #description="ngModel" [(ngModel)]="newProduct.title" /><br>
+    <input type="text" class="form-control" name="newProduct.title" required minlength="4" #title="ngModel" [(ngModel)]="newProduct.title" /><br>
   </div>
   <div>
     <label for="">Price:</label>

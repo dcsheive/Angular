@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-new',
   templateUrl: './new.component.html',
@@ -22,5 +21,4 @@ export class NewComponent implements OnInit {
   goHome() {
     this.router.navigateByUrl('/products');
   }
-
 }

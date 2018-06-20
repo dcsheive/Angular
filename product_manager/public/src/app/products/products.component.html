@@ -1,3 +1,4 @@
+<router-outlet></router-outlet>
 <h1>Products: </h1>
 <div *ngIf="products">
   <app-product *ngFor="let item of products" [item]='item' (taskEmitter) = "getProductsFromService()"></app-product>

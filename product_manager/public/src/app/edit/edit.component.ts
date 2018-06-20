@@ -25,7 +25,6 @@ export class EditComponent implements OnInit {
     this._httpService.editProduct(id, this.newProduct).subscribe(data => {
     });
     this.newProduct = { title: '', price: '', image: ''};
-    this.router.navigateByUrl('/products');
   }
   deleteProduct(id) {
     this._httpService.delProduct(id).subscribe(data => {});
