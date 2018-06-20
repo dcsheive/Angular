@@ -12,12 +12,16 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     this.getProductsFromService();
+    this._httpService.attach(this);
   }
   getProductsFromService() {
     const observable = this._httpService.getProducts();
     observable.subscribe(data => {
       this.products = data;
     });
+  }
+  update() {
+    this.getProductsFromService();
   }
 
 }

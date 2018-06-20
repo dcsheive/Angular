@@ -23,11 +23,14 @@ export class EditComponent implements OnInit {
   }
   updateProduct(id) {
     this._httpService.editProduct(id, this.newProduct).subscribe(data => {
+      this._httpService.notify();
     });
     this.newProduct = { title: '', price: '', image: ''};
   }
   deleteProduct(id) {
-    this._httpService.delProduct(id).subscribe(data => {});
+    this._httpService.delProduct(id).subscribe(data => {
+      this._httpService.notify();
+    });
     this.router.navigateByUrl('/products');
   }
 }

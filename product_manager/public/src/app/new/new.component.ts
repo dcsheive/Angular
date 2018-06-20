@@ -14,7 +14,9 @@ export class NewComponent implements OnInit {
     this.newProduct = { title: '', price: '', image: ''};
   }
   onSubmit() {
-    this._httpService.addProduct(this.newProduct).subscribe(data => {});
+    this._httpService.addProduct(this.newProduct).subscribe(data => {
+      this._httpService.notify();
+    });
     this.newProduct = { title: '', price: '', image: ''};
     this.router.navigateByUrl('/products');
   }

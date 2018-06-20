@@ -5,8 +5,17 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ProductService {
+  private listeners = [];
   constructor(private _http: HttpClient) {
     this.getProducts();
+  }
+  attach(component) {
+    this.listeners.push(component);
+  }
+  notify() {
+    for (const listener of this.listeners) {
+      listener.update();
+    }
   }
   getProducts() {
     return this._http.get('/api/products');
