@@ -20,15 +20,14 @@ export class NewListingComponent implements OnInit {
       price: '',
       location: '',
       image: '',
-      user: ''
     };
   }
   addListing() {
-    this._ls.create(this.newListing, (data) => {
+    this._ls.create(this.newListing, data => {
       if (data.errors || data.message ) {
         console.log(data);
       } else {
-        this._ls.notify();
+        this._ls.notify(data, 'create');
       }
     });
     this.init();

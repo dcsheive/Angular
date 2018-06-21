@@ -14,23 +14,38 @@ export class UserListingsComponent implements OnInit {
   constructor(private _us: UserService, private router: Router, private _ls: ListingService) { }
 
   ngOnInit() {
-    this.getId();
-  }
-  getProducts() {
-    this._ls.getAll(data => {
-      this.products = data;
-    });
-  }
-  update() {
+    this._ls.attach(this);
+    if (localStorage.getItem('userid') === 'undefined') {
+      this.router.navigateByUrl('/');
+    }
+    this.user = localStorage.getItem('userid');
     this.getProducts();
   }
-  getId() {
-    this._us.getId( id => {
-      if (id && !id['message']) {
-        this.user = id;
-      } else {
-        this.router.navigateByUrl('/');
-      }
+  getProducts() {
+    this._ls.getAllMy(this.user, data => {
+      this.products = data.reverse();
     });
+  }
+  update(data, action) {
+    if (action === 'delete') {
+      for (const product of this.products) {
+        if (product._id === data._id) {
+          const index = this.products.indexOf(product);
+          if (index > -1) {
+            this.products.splice(index, 1);
+          }
+        }
+      }
+    }
+    if (action === 'create') {
+      this.products.unshift(data);
+    }
+    if (action === 'edit') {
+      for (let product of this.products) {
+        if (product._id === data._id) {
+          product = data;
+        }
+      }
+    }
   }
 }

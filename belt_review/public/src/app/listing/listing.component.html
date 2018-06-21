@@ -1,7 +1,13 @@
 <div class="box">
+  <img src="{{item.image}}" alt="">
   <p>Title: {{item.title}}</p>
   <p>Description: {{item.description}}</p>
   <p>Price: {{item.price}}</p>
   <p>Location: {{item.location}}</p>
-  <img src="{{item.image}}" alt="">
+  <button *ngIf="!deleteit" (click)="(openContact(item))">Contact</button>
+  <button *ngIf="deleteit" (click)="(deleteProduct(item))">Delete</button>
+  <div *ngIf="contact">
+    <p>Name: {{item.user.first_name}}</p>
+    <p>Email: {{item.user.email}}</p>
+  </div>
 </div>

@@ -8,28 +8,40 @@ class UserController {
             if(userEmail){
                 return res.json({message: "email Taken!"})
             }
+            else if (req.body.password != req.body.password_confirm){
+                return res.json({message: "Passwords must match!"})
+            }
             else {
                 let user = new User(req.body)
-                user.save(function(error){
-                    if (error){
-                        return res.json({message: "register failed", err:error})
+                bcrypt.hash(user.password, 10, (err, hash) => {
+                    if(hash){
+                        user.password = hash;
+                        user.save(function(error){
+                            if (error){
+                                return res.json({message: "register failed", err:error})
+                            }
+                            else {
+                                return res.json(user)
+                            }
+                        })
                     }
                     else {
-                        return res.json(user)
+                        return res.json({message: "register failed", err:err})
                     }
                 })
             }
         })
     }
     login (req,res){
-        User.find({email:req.body.email}, (err,user) => {
+        User.findOne({email:req.body.email}, (err,user) => {
             if(user){
-                bcrypt.compare(req.body.password, user[0].password, function(err,result){
+                bcrypt.compare(req.body.password, user.password, function(err,result){
                     if (result){
-                        req.session.user_id = user[0]._id
+                        req.session.user_id = user._id
                         return res.json(user)
                     }
                     else {
+                        
                         return res.json({message: "wrong password", err:err})
                     }
                 })
@@ -41,7 +53,6 @@ class UserController {
     }
     logout(req,res){
         req.session.user_id = null;
-        console.log('was here');
         return res.json({message:"Logged out"})
     }
     getOne(req,res){
@@ -73,9 +84,6 @@ class UserController {
                 return res.json({message: "could not find user", err:err})
             }
         })
-    }
-    currentUser(req,res){
-        return res.json(req.session.user_id);
     }
 }
 module.exports = new UserController()

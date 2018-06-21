@@ -33,6 +33,7 @@ export class RegisterComponent implements OnInit {
       if (data.errors || data.message ) {
         console.log(data);
       } else {
+        localStorage.setItem('userid', data._id);
         this.router.navigateByUrl('/browse');
       }
     });
@@ -43,6 +44,7 @@ export class RegisterComponent implements OnInit {
       if (data.errors || data.message ) {
         console.log(data);
       } else {
+        localStorage.setItem('userid', data._id);
         this.router.navigateByUrl('/browse');
       }
     });

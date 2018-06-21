@@ -16,6 +16,21 @@ class ProductController {
             }
         })
     }
+    allMy( req,res ){
+        Product.find({user:req.params.id})
+        .populate({
+            path:'user',
+            model:'User'
+        })
+        .exec((err,products)=>{
+            if (err){
+                return res.json({message: "Could not find Products", error: err})
+            }
+            else {
+                return res.json(products)
+            }
+        })
+    }
     getOne(req,res){
         Product.findOne({_id:req.params.id})
         .populate({
@@ -72,7 +87,7 @@ class ProductController {
     }
     create(req,res){
         if(!req.session.user_id){
-            return res.stataus(403).json({message:"You must be logged in!", err:err})
+            return res.json({message:"You must be logged in!"})
         }
         else{
             var product = new Product(req.body)
@@ -82,7 +97,7 @@ class ProductController {
                     return res.json({message: "Could not create Product", error: err})
                 }
                 else{
-                    User.findOne({_id:req.session.user_id},(err, user)=>{
+                    User.findById(req.session.user_id,(err, user)=>{
                         if (user){
                             user.listings.push(product);
                             user.save(err=>{

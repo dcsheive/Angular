@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { UserService } from './user.service';
 import { ListingService } from './listing.service';
+import { DayComponent } from './day/day.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ListingService } from './listing.service';
     ListingComponent,
     UserListingsComponent,
     UserListingComponent,
-    NewListingComponent
+    NewListingComponent,
+    DayComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
