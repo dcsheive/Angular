@@ -1,14 +1,18 @@
 <h1>Add New Listing</h1>
-<form (submit)="addListing()">
+<form (submit)="addListing()" #formData='ngForm'>
   <label for="">Title: </label>
-  <input type="text" name="newListing.title" [(ngModel)]="newListing.title"><br>
+  <input type="text" name="newListing.title" [(ngModel)]="newListing.title" minlength="4" required #title="ngModel"><br>
+  <p *ngIf="!title.valid && title.dirty" class="red">Title must be 4 characters</p>
   <label for="">Description: </label>
-  <input type="text" name="newListing.description" [(ngModel)]="newListing.description"><br>
+  <input type="text" name="newListing.description" [(ngModel)]="newListing.description" required #desc="ngModel"><br>
+  <p *ngIf="!desc.valid && desc.dirty" class="red">Description is required</p>
   <label for="">Price: </label>
-  <input type="text" name="newListing.price" [(ngModel)]="newListing.price"><br>
+  <input type="text" name="newListing.price" [(ngModel)]="newListing.price" required #price="ngModel" pattern="[0-9]+"><br>
+  <p *ngIf="!price.valid && price.dirty" class="red">Price must be a number!</p>
   <label for="">Location: </label>
-  <input type="text" name="newListing.location" [(ngModel)]="newListing.location"><br>
+  <input type="text" name="newListing.location" [(ngModel)]="newListing.location" required #location="ngModel" pattern="^[a-zA-Z ]+, [A-Z]{2}$"><br>
+  <p *ngIf="!location.valid && location.dirty" class="red">Location in this format: "New York, NY"</p>
   <label for="">Image: </label>
   <input type="text" name="newListing.image" [(ngModel)]="newListing.image"><br>
-  <button type="submit">Add</button>
+  <button *ngIf="formData.valid" type="submit">Add</button>
 </form>

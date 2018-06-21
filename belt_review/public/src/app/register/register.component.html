@@ -1,24 +1,30 @@
 <app-day></app-day>
 
 <h1>Register</h1>
-<form (submit)="register()">
+<form (submit)="register()" #formData='ngForm'>
   <label for="">First Name: </label>
-  <input type="text" name="registerUser.first_name" [(ngModel)]="registerUser.first_name"><br>
+  <input type="text" name="registerUser.first_name" [(ngModel)]="registerUser.first_name" required #firstname="ngModel" minlength="2"><br>
+  <p *ngIf="!firstname.valid && firstname.dirty" class="red">First Name must be 2 characters</p>
   <label for="">Last Name: </label>
-  <input type="text" name="registerUser.last_name" [(ngModel)]="registerUser.last_name"><br>
+  <input type="text" name="registerUser.last_name" [(ngModel)]="registerUser.last_name" required #lastname="ngModel" minlength="2"><br>
+  <p *ngIf="!lastname.valid && lastname.dirty" class="red">Last Name must be 2 characters</p>
   <label for="">Email: </label>
-  <input type="text" name="registerUser.email" [(ngModel)]="registerUser.email"><br>
+  <input type="text" name="registerUser.email" [(ngModel)]="registerUser.email" required #email="ngModel" pattern="^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$"><br>
+  <p *ngIf="!email.valid && email.dirty" class="red">Please enter a valid email</p>
   <label for="">Password: </label>
-  <input type="password" name="registerUser.password" [(ngModel)]="registerUser.password"><br>
+  <input type="password" name="registerUser.password" [(ngModel)]="registerUser.password" required #password="ngModel" minlength="8"><br>
+  <p *ngIf="!password.valid && password.dirty" class="red">Password must be at least 8 characters</p>
   <label for="">Confirm Password: </label>
-  <input type="password" name="registerUser.password_confirm" [(ngModel)]="registerUser.password_confirm"><br>
-  <button type="submit">Register</button>
+  <input type="password" name="registerUser.password_confirm" [(ngModel)]="registerUser.password_confirm" required #passwordconfirm="ngModel" minlength="8"><br>
+  <p *ngIf="!passwordconfirm.valid && passwordconfirm.dirty" class="red">Please confirm your password</p>
+  <button *ngIf="formData.valid" type="submit">Register</button>
 </form>
 <h1>Login</h1>
-<form (submit)="login()">
+<form (submit)="login()" #formData2='ngForm'>
+  <p *ngIf="loginMessage" class="red">{{loginMessage.message}}</p>
   <label for="">Email: </label>
-  <input type="text" name="loginUser.email" [(ngModel)]="loginUser.email"><br>
+  <input type="text" name="loginUser.email" [(ngModel)]="loginUser.email" required><br>
   <label for="">Password: </label>
-  <input type="text" name="loginUser.password" [(ngModel)]="loginUser.password"><br>
-  <button type="submit">Login</button>
+  <input type="password" name="loginUser.password" [(ngModel)]="loginUser.password" required #password2="ngModel"><br>
+  <button *ngIf="formData2.valid" type="submit">Login</button>
 </form>

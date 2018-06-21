@@ -8,6 +8,7 @@ import { ListingService } from '../listing.service';
 })
 export class NewListingComponent implements OnInit {
   newListing;
+  validations;
   @Input() user;
   constructor(private _ls: ListingService) { }
   ngOnInit() {

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   private registerUser;
   private loginUser;
+  private loginMessage;
   constructor(private _us: UserService, private router: Router) {
   }
   ngOnInit() {
@@ -32,6 +33,7 @@ export class RegisterComponent implements OnInit {
     this._us.login(this.loginUser, (data) => {
       if (data.errors || data.message ) {
         console.log(data);
+        this.loginMessage = data;
       } else {
         localStorage.setItem('userid', data._id);
         this.router.navigateByUrl('/browse');

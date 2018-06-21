@@ -42,12 +42,12 @@ class UserController {
                     }
                     else {
                         
-                        return res.json({message: "wrong password", err:err})
+                        return res.json({message: "Could not log you in!", err:err})
                     }
                 })
             }
             else {
-                return res.json({message: "could not find user", err:err})
+                return res.json({message: "Please Register!", err:err})
             }
         })
     }
